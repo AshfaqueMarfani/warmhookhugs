@@ -1,0 +1,122 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}The Artisan Initiative{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="bg-warmcream py-20 md:py-32">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <p class="text-sm uppercase tracking-[0.3em] text-sage font-medium mb-4">Social Enterprise</p>
+        <h1 class="text-4xl md:text-6xl font-serif font-bold text-charcoal leading-tight">
+            The Artisan Initiative
+        </h1>
+        <p class="mt-6 text-lg text-stone-600 leading-relaxed max-w-2xl mx-auto">
+            Empowering skilled women artisans across Pakistan through dignified work,
+            fair wages, and the preservation of traditional craft techniques.
+        </p>
+    </div>
+</section>
+
+<!-- Mission -->
+<section class="py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-6">
+                <h2 class="text-3xl font-serif font-bold text-charcoal">Our Mission</h2>
+                <p class="text-stone-600 leading-relaxed">
+                    Warm Hook Hugs is more than a brand — it's a vehicle for change.
+                    We believe that the extraordinary crochet and knitting skills found
+                    across Pakistan deserve recognition, fair compensation, and a
+                    global stage.
+                </p>
+                <p class="text-stone-600 leading-relaxed">
+                    Through our Hub-and-Spoke model, we partner with women artisans in
+                    peri-urban and rural areas across Sindh and Punjab. We supply premium
+                    yarns, standardized patterns, and quality training — they bring their
+                    incredible skill, creativity, and dedication.
+                </p>
+                <p class="text-stone-600 leading-relaxed">
+                    The result? Heirloom-quality products that carry the warmth and soul
+                    of the hands that made them, while providing sustainable livelihoods
+                    for artisan families.
+                </p>
+            </div>
+            <div class="aspect-[4/5] bg-beige/30 rounded-2xl flex items-center justify-center">
+                <div class="text-center p-8">
+                    <span class="text-8xl">👩‍🎨</span>
+                    <p class="mt-4 text-stone-400 text-sm italic">Artisan community — add via Admin</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact -->
+<section class="bg-white py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-serif font-bold text-charcoal mb-14">Our Commitment</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="space-y-4">
+                <div class="w-16 h-16 bg-sage/20 rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-3xl">💰</span>
+                </div>
+                <h3 class="text-lg font-serif font-bold text-charcoal">Fair Wages</h3>
+                <p class="text-sm text-stone-600 leading-relaxed">
+                    Our artisans earn above-market rates per piece.
+                    No exploitation, no middlemen — direct, honest pay.
+                </p>
+            </div>
+            <div class="space-y-4">
+                <div class="w-16 h-16 bg-sage/20 rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-3xl">📚</span>
+                </div>
+                <h3 class="text-lg font-serif font-bold text-charcoal">Skills Training</h3>
+                <p class="text-sm text-stone-600 leading-relaxed">
+                    We provide free training workshops to help artisans
+                    master advanced techniques and expand their craft.
+                </p>
+            </div>
+            <div class="space-y-4">
+                <div class="w-16 h-16 bg-sage/20 rounded-full flex items-center justify-center mx-auto">
+                    <span class="text-3xl">🏠</span>
+                </div>
+                <h3 class="text-lg font-serif font-bold text-charcoal">Work From Home</h3>
+                <p class="text-sm text-stone-600 leading-relaxed">
+                    Flexible, dignified work that fits around family life.
+                    Our artisans work from their homes on their own schedule.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quote -->
+<section class="py-20 bg-warmcream">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+        <blockquote class="text-2xl md:text-3xl font-serif italic text-charcoal leading-relaxed">
+            "When you buy from Warm Hook Hugs, you're not just buying a product.
+            You're investing in a family's livelihood, preserving a centuries-old craft,
+            and choosing slow fashion over disposable consumption."
+        </blockquote>
+        <p class="mt-6 text-terracotta font-medium text-sm uppercase tracking-wider">— The Warm Hook Hugs Team</p>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 bg-charcoal">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-serif font-bold text-cream">Support the Movement</h2>
+        <p class="text-stone-400 mt-4 max-w-lg mx-auto">
+            Every purchase directly supports our artisan community.
+            Shop with purpose and bring handcrafted warmth into your home.
+        </p>
+        <a href="{% url 'store:all_products' %}"
+           class="inline-block mt-8 bg-terracotta text-cream px-10 py-4 text-sm uppercase tracking-widest font-medium hover:bg-terracotta-dark transition-all duration-300 rounded-sm">
+            Shop & Support
+        </a>
+    </div>
+</section>
+
+{% endblock %}

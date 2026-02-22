@@ -1,0 +1,28 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Page Not Found — Warm Hook Hugs{% endblock %}
+{% block newsletter %}{% endblock %}
+
+{% block content %}
+<section class="py-20 md:py-32">
+    <div class="max-w-xl mx-auto px-4 text-center">
+        <p class="text-8xl font-serif font-bold text-beige mb-4">404</p>
+        <h1 class="text-3xl font-serif font-bold text-charcoal mb-4">Oops! This stitch was dropped</h1>
+        <p class="text-stone-500 mb-8 leading-relaxed">
+            The page you're looking for doesn't exist or has been moved.<br>
+            Let's get you back to something beautiful.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'store:home' %}"
+               class="bg-charcoal text-cream px-10 py-4 text-sm uppercase tracking-widest font-medium hover:bg-terracotta transition-all rounded-sm">
+                Back to Home
+            </a>
+            <a href="{% url 'store:all_products' %}"
+               class="border border-charcoal text-charcoal px-10 py-4 text-sm uppercase tracking-widest font-medium hover:bg-charcoal hover:text-cream transition-all rounded-sm">
+                Browse Shop
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

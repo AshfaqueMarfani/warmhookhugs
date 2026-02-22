@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Yarn Ball -->
+  <circle cx="32" cy="32" r="28" fill="#C2703E" opacity="0.9"/>
+  <path d="M12 28 Q20 18 40 16 Q55 18 52 35 Q48 50 30 52 Q15 50 12 28Z" fill="none" stroke="#FDF8F0" stroke-width="2" opacity="0.4"/>
+  <path d="M18 38 Q25 24 45 22 Q56 28 50 42" fill="none" stroke="#FDF8F0" stroke-width="1.5" opacity="0.3"/>
+  <path d="M22 44 Q30 30 48 30" fill="none" stroke="#FDF8F0" stroke-width="1.5" opacity="0.25"/>
+  <!-- Crochet Hook -->
+  <path d="M44 8 L54 18 Q56 22 52 24 L42 14 Z" fill="#3D3D3D" opacity="0.7"/>
+  <circle cx="53" cy="21" r="3" fill="#3D3D3D" opacity="0.6"/>
+  <!-- W letter subtle -->
+  <text x="32" y="40" text-anchor="middle" font-family="serif" font-size="22" font-weight="bold" fill="#FDF8F0" opacity="0.85">W</text>
+</svg>

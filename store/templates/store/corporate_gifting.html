@@ -1,0 +1,101 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Corporate & Event Gifting{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="bg-warmcream py-20 md:py-32">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <p class="text-sm uppercase tracking-[0.3em] text-terracotta font-medium mb-4">B2B & Events</p>
+        <h1 class="text-4xl md:text-6xl font-serif font-bold text-charcoal leading-tight">
+            Corporate & Event Gifting
+        </h1>
+        <p class="mt-6 text-lg text-stone-600 leading-relaxed max-w-2xl mx-auto">
+            Elevate your corporate gifts, wedding favors, and event hampers with
+            premium handcrafted pieces that leave a lasting impression.
+        </p>
+    </div>
+</section>
+
+<!-- Use Cases -->
+<section class="py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl p-8 border border-beige/30 text-center hover:shadow-lg transition-shadow">
+                <span class="text-5xl">🎁</span>
+                <h3 class="text-xl font-serif font-bold text-charcoal mt-4">Corporate Gifts</h3>
+                <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+                    Impress clients and reward employees with unique handcrafted gifts.
+                    Custom branding and packaging available for bulk orders.
+                </p>
+            </div>
+            <div class="bg-white rounded-2xl p-8 border border-beige/30 text-center hover:shadow-lg transition-shadow">
+                <span class="text-5xl">👶</span>
+                <h3 class="text-xl font-serif font-bold text-charcoal mt-4">Newborn Hampers</h3>
+                <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+                    Welcome new arrivals with curated hampers — organic cotton rattles,
+                    booties, and plushies. Perfect for hospital partnerships.
+                </p>
+            </div>
+            <div class="bg-white rounded-2xl p-8 border border-beige/30 text-center hover:shadow-lg transition-shadow">
+                <span class="text-5xl">💒</span>
+                <h3 class="text-xl font-serif font-bold text-charcoal mt-4">Wedding & Events</h3>
+                <p class="text-sm text-stone-600 mt-3 leading-relaxed">
+                    Unique crochet wedding favors, Mehndi gifts, and party
+                    favors that your guests will actually cherish.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="bg-white py-20">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-serif font-bold text-charcoal mb-12">Why Choose Warm Hook Hugs</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="space-y-2">
+                <span class="text-3xl">📦</span>
+                <h4 class="text-sm font-bold text-charcoal">Bulk Orders</h4>
+                <p class="text-xs text-stone-500">50+ units with tiered pricing</p>
+            </div>
+            <div class="space-y-2">
+                <span class="text-3xl">🎨</span>
+                <h4 class="text-sm font-bold text-charcoal">Custom Design</h4>
+                <p class="text-xs text-stone-500">Your logo, colors, and themes</p>
+            </div>
+            <div class="space-y-2">
+                <span class="text-3xl">🕐</span>
+                <h4 class="text-sm font-bold text-charcoal">Timely Delivery</h4>
+                <p class="text-xs text-stone-500">Nationwide logistics network</p>
+            </div>
+            <div class="space-y-2">
+                <span class="text-3xl">📜</span>
+                <h4 class="text-sm font-bold text-charcoal">Premium Packaging</h4>
+                <p class="text-xs text-stone-500">Gift-ready presentation</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 bg-charcoal">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-3xl font-serif font-bold text-cream">Let's Collaborate</h2>
+        <p class="text-stone-400 mt-4 max-w-lg mx-auto">
+            Reach out to discuss your corporate gifting requirements.
+            We'll craft a custom proposal tailored to your needs and budget.
+        </p>
+        <div class="mt-8 space-y-2">
+            <a href="https://www.instagram.com/warmhookhugs.pk" target="_blank"
+               class="inline-block bg-terracotta text-cream px-10 py-4 text-sm uppercase tracking-widest font-medium hover:bg-terracotta-dark transition-all duration-300 rounded-sm">
+                Contact Us on Instagram
+            </a>
+            <p class="text-xs text-stone-500">DM @warmhookhugs.pk for B2B inquiries</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

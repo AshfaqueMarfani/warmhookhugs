@@ -1,0 +1,49 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+{% block newsletter %}{% endblock %}
+
+{% block content %}
+
+<section class="py-20">
+    <div class="max-w-md mx-auto px-4">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-serif font-bold text-charcoal">Welcome Back</h1>
+            <p class="text-stone-500 mt-2">Sign in to your Warm Hook Hugs account</p>
+        </div>
+
+        <form method="POST" class="space-y-5 bg-white rounded-xl p-8 border border-beige/30">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 text-sm text-red-700">
+                {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+            </div>
+            {% endif %}
+
+            <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Username</label>
+                {{ form.username }}
+                {% if form.username.errors %}<p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>{% endif %}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-charcoal mb-1">Password</label>
+                {{ form.password }}
+                {% if form.password.errors %}<p class="text-red-500 text-xs mt-1">{{ form.password.errors.0 }}</p>{% endif %}
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-charcoal text-cream py-4 text-sm uppercase tracking-widest font-medium hover:bg-terracotta transition-all rounded-lg">
+                Sign In
+            </button>
+        </form>
+
+        <p class="text-center mt-6 text-sm text-stone-500">
+            Don't have an account?
+            <a href="{% url 'store:register' %}" class="text-terracotta hover:underline font-medium">Create one</a>
+        </p>
+    </div>
+</section>
+
+{% endblock %}

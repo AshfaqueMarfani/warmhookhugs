@@ -1,0 +1,53 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Verify Your Order{% endblock %}
+
+{% block content %}
+
+<section class="py-20 md:py-32">
+    <div class="max-w-md mx-auto px-4">
+        <div class="text-center mb-10">
+            <div class="w-20 h-20 bg-warmcream rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="text-4xl">📱</span>
+            </div>
+            <h1 class="text-3xl font-serif font-bold text-charcoal">Verify Your Order</h1>
+            <p class="text-stone-600 mt-3 leading-relaxed">
+                We've sent a <strong>6-digit verification code</strong> to
+                <span class="font-semibold text-terracotta">{{ phone }}</span>.<br>
+                Please enter it below to confirm your order.
+            </p>
+        </div>
+
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+
+            <div>
+                {{ form.otp_code }}
+                {% if form.otp_code.errors %}
+                <p class="text-red-500 text-sm text-center mt-2">{{ form.otp_code.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-charcoal text-cream py-4 px-8 text-sm uppercase tracking-widest font-medium hover:bg-terracotta transition-all duration-300 rounded-lg">
+                Verify & Confirm Order
+            </button>
+        </form>
+
+        <div class="text-center mt-8 space-y-4">
+            <p class="text-xs text-stone-400">
+                Didn't receive the code? The code expires in 5 minutes.
+            </p>
+            <a href="{% url 'store:resend_otp' %}"
+               class="inline-block text-sm text-terracotta hover:underline font-medium">
+                Resend OTP →
+            </a>
+            <p class="text-xs text-stone-400 mt-4">
+                Order: <span class="font-mono font-medium text-charcoal">{{ order.short_id }}</span>
+            </p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

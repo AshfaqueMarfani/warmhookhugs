@@ -1,0 +1,234 @@
+{% extends 'store/base.html' %}
+{% load static store_tags %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+
+<section class="py-12 md:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl md:text-4xl font-serif font-bold text-charcoal mb-10">Checkout</h1>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+            <!-- Checkout Form -->
+            <div class="lg:col-span-2">
+                <form method="POST" class="space-y-8">
+                    {% csrf_token %}
+
+                    <!-- Contact Details -->
+                    <div>
+                        <h2 class="text-lg font-serif font-bold text-charcoal mb-4 flex items-center gap-2">
+                            <span class="w-7 h-7 bg-charcoal text-cream rounded-full text-sm flex items-center justify-center">1</span>
+                            Contact Details
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-charcoal mb-1">Full Name *</label>
+                                {{ form.full_name }}
+                                {% if form.full_name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.full_name.errors.0 }}</p>{% endif %}
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-charcoal mb-1">Phone Number * <span class="text-xs text-stone-400">(for OTP)</span></label>
+                                {{ form.phone }}
+                                {% if form.phone.errors %}<p class="text-red-500 text-xs mt-1">{{ form.phone.errors.0 }}</p>{% endif %}
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-charcoal mb-1">Email <span class="text-xs text-stone-400">(optional)</span></label>
+                                {{ form.email }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Address -->
+                    <div>
+                        <h2 class="text-lg font-serif font-bold text-charcoal mb-4 flex items-center gap-2">
+                            <span class="w-7 h-7 bg-charcoal text-cream rounded-full text-sm flex items-center justify-center">2</span>
+                            Shipping Address
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-charcoal mb-1">Address Line 1 *</label>
+                                {{ form.address_line_1 }}
+                                {% if form.address_line_1.errors %}<p class="text-red-500 text-xs mt-1">{{ form.address_line_1.errors.0 }}</p>{% endif %}
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-charcoal mb-1">Address Line 2</label>
+                                {{ form.address_line_2 }}
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-charcoal mb-1">City *</label>
+                                {{ form.city }}
+                                {% if form.city.errors %}<p class="text-red-500 text-xs mt-1">{{ form.city.errors.0 }}</p>{% endif %}
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-charcoal mb-1">Province</label>
+                                {{ form.province }}
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-charcoal mb-1">Postal Code</label>
+                                {{ form.postal_code }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Notes -->
+                    <div>
+                        <h2 class="text-lg font-serif font-bold text-charcoal mb-4 flex items-center gap-2">
+                            <span class="w-7 h-7 bg-charcoal text-cream rounded-full text-sm flex items-center justify-center">3</span>
+                            Special Instructions
+                        </h2>
+                        {{ form.note }}
+                    </div>
+
+                    <!-- Payment Method Selection -->
+                    <div class="bg-warmcream rounded-xl p-6">
+                        <h2 class="text-lg font-serif font-bold text-charcoal mb-4">Payment Method</h2>
+                        <div class="space-y-3">
+                            {% for pm in payment_methods %}
+                            <label class="payment-option flex items-center gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all duration-200
+                                         {% if pm.value == 'cod' %}border-terracotta bg-white{% else %}border-transparent bg-white/60 hover:bg-white{% endif %}"
+                                   data-value="{{ pm.value }}">
+                                <input type="radio" name="payment_method" value="{{ pm.value }}"
+                                       {% if pm.value == 'cod' %}checked{% endif %}
+                                       class="sr-only payment-method-radio">
+                                <div class="w-10 h-10 rounded-full flex items-center justify-center text-xl
+                                            {% if pm.value == 'cod' %}bg-terracotta/10{% else %}bg-stone-100{% endif %}">
+                                    {{ pm.icon }}
+                                </div>
+                                <div class="flex-1">
+                                    <span class="font-medium text-charcoal block">{{ pm.name }}</span>
+                                    <span class="text-xs text-stone-500">{{ pm.description }}</span>
+                                </div>
+                                <div class="w-5 h-5 rounded-full border-2 flex items-center justify-center
+                                            {% if pm.value == 'cod' %}border-terracotta{% else %}border-stone-300{% endif %}">
+                                    <div class="w-2.5 h-2.5 rounded-full transition-all
+                                                {% if pm.value == 'cod' %}bg-terracotta scale-100{% else %}bg-transparent scale-0{% endif %}"></div>
+                                </div>
+                            </label>
+                            {% endfor %}
+                        </div>
+                        <p class="text-xs text-stone-400 mt-3" id="payment-hint">
+                            An OTP will be sent to your phone to verify your order.
+                        </p>
+                    </div>
+
+                    <button type="submit" id="checkout-btn"
+                            class="w-full bg-charcoal text-cream py-4 px-8 text-sm uppercase tracking-widest font-medium hover:bg-terracotta transition-all duration-300 rounded-lg">
+                        Place Order & Verify via OTP
+                    </button>
+                </form>
+            </div>
+
+            <!-- Order Summary Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl p-6 border border-beige/30 sticky top-24">
+                    <h3 class="text-lg font-serif font-bold text-charcoal mb-6">Your Order</h3>
+                    <div class="space-y-4 mb-6">
+                        {% for item in cart_items %}
+                        <div class="flex gap-3">
+                            <div class="w-14 h-14 bg-warmcream rounded-lg overflow-hidden flex-shrink-0">
+                                {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="w-full h-full object-cover">
+                                {% else %}
+                                <div class="w-full h-full flex items-center justify-center"><span class="text-lg opacity-30">🧶</span></div>
+                                {% endif %}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm text-charcoal truncate">{{ item.product.title }}</p>
+                                <p class="text-xs text-stone-500">Qty: {{ item.qty }}</p>
+                            </div>
+                            <span class="text-sm font-medium text-charcoal whitespace-nowrap">{{ item.line_total|pkr }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="border-t border-beige/50 pt-4 space-y-2 text-sm">
+                        <div class="flex justify-between text-stone-600">
+                            <span>Subtotal</span>
+                            <span>{{ cart_total|pkr }}</span>
+                        </div>
+                        {% if discount %}
+                        <div class="flex justify-between text-sage-dark">
+                            <span>Discount{% if coupon_code %} ({{ coupon_code }}){% endif %}</span>
+                            <span>- {{ discount|pkr }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="flex justify-between text-stone-600">
+                            <span>Delivery</span>
+                            <span class="text-sage font-medium">
+                                {% if shipping_cost == 0 %}Free{% else %}{{ shipping_cost|pkr }}{% endif %}
+                            </span>
+                        </div>
+                        <div class="border-t border-beige/50 pt-2 flex justify-between">
+                            <span class="font-bold text-charcoal" id="total-label">Total</span>
+                            <span class="font-bold text-charcoal text-lg">{{ grand_total|pkr }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function(){
+    const labels = {
+        cod:  'Cash on Delivery',
+        card: 'Card Payment',
+        easypaisa: 'EasyPaisa',
+        jazzcash: 'JazzCash'
+    };
+    const hints = {
+        cod:  'An OTP will be sent to your phone to verify your order.',
+        card: 'You will be redirected to a secure payment page after placing your order.',
+        easypaisa: 'You will be redirected to EasyPaisa to complete your payment.',
+        jazzcash: 'You will be redirected to JazzCash to complete your payment.'
+    };
+    const btnTexts = {
+        cod:  'Place Order & Verify via OTP',
+        card: 'Place Order & Pay Now',
+        easypaisa: 'Place Order & Pay via EasyPaisa',
+        jazzcash: 'Place Order & Pay via JazzCash'
+    };
+
+    document.querySelectorAll('.payment-option').forEach(function(opt){
+        opt.addEventListener('click', function(){
+            var val = this.dataset.value;
+            // Update radio
+            this.querySelector('input[type=radio]').checked = true;
+
+            // Update visual states
+            document.querySelectorAll('.payment-option').forEach(function(o){
+                o.classList.remove('border-terracotta','bg-white');
+                o.classList.add('border-transparent','bg-white/60');
+                o.querySelector('.w-10').classList.remove('bg-terracotta/10');
+                o.querySelector('.w-10').classList.add('bg-stone-100');
+                var dot = o.querySelector('.w-5 .w-2\\.5') || o.querySelector('.w-5 > div');
+                if(dot){ dot.classList.remove('bg-terracotta','scale-100'); dot.classList.add('bg-transparent','scale-0'); }
+                var ring = o.querySelector('.w-5');
+                if(ring){ ring.classList.remove('border-terracotta'); ring.classList.add('border-stone-300'); }
+            });
+            this.classList.remove('border-transparent','bg-white/60');
+            this.classList.add('border-terracotta','bg-white');
+            this.querySelector('.w-10').classList.remove('bg-stone-100');
+            this.querySelector('.w-10').classList.add('bg-terracotta/10');
+            var dot = this.querySelector('.w-5 > div');
+            if(dot){ dot.classList.remove('bg-transparent','scale-0'); dot.classList.add('bg-terracotta','scale-100'); }
+            var ring = this.querySelector('.w-5');
+            if(ring){ ring.classList.remove('border-stone-300'); ring.classList.add('border-terracotta'); }
+
+            // Update labels
+            var hint = document.getElementById('payment-hint');
+            var btn = document.getElementById('checkout-btn');
+            var totalLabel = document.getElementById('total-label');
+            if(hint) hint.textContent = hints[val] || '';
+            if(btn) btn.textContent = btnTexts[val] || 'Place Order';
+            if(totalLabel) totalLabel.textContent = 'Total';
+        });
+    });
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'store/base.html' %}
+{% block title %}Terms & Conditions — Warm Hook Hugs{% endblock %}
+{% block meta_description %}Terms and conditions for shopping at Warm Hook Hugs. Read our policies on orders, payments, and more.{% endblock %}
+{% block newsletter %}{% endblock %}
+
+{% block content %}
+<section class="py-12 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl font-serif font-bold text-charcoal mb-2">Terms &amp; Conditions</h1>
+        <p class="text-sm text-stone-400 mb-10">Last updated: February 2026</p>
+
+        <div class="prose prose-stone max-w-none space-y-8 text-stone-600 text-sm leading-relaxed">
+
+            <div>
+                <h2 class="text-xl font-serif font-bold text-charcoal mb-3">1. General</h2>
+                <p>By accessing and using warmhookhugs.pk ("the Website"), you agree to these Terms &amp; Conditions. Warm Hook Hugs reserves the right to update these terms at any time. Continued use of the site constitutes acceptance of the updated terms.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-serif font-bold text-charcoal mb-3">2. Products &amp; Pricing</h2>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>All products are <strong>handmade crochet items</strong>. Slight variations in colour, texture, and sizing are inherent to handcrafted work and are not considered defects.</li>
+                    <li>Prices are listed in Pakistani Rupees (PKR) and include applicable taxes.</li>
+                    <li>We reserve the right to update pricing without prior notice. The price at the time of order placement is final.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-serif font-bold text-charcoal mb-3">3. Orders &amp; Verification</h2>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>All orders require <strong>OTP verification</strong> via WhatsApp/SMS to confirm the customer's identity and prevent bogus orders.</li>
+                    <li>Orders that fail OTP verification within the allotted time will be automatically cancelled.</li>
+                    <li>Order confirmation does not guarantee product availability. In rare cases of stock issues, we will contact you for a full refund or alternative.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-serif font-bold text-charcoal mb-3">4. Payment</h2>
+                <p>Currently, we only accept <strong>Cash on Delivery (COD)</strong>. The full order amount (including shipping, if applicable) is collected at the time of delivery. Please have the exact amount ready.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-serif font-bold text-charcoal mb-3">5. Shipping</h2>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>We ship nationwide across Pakistan.</li>
+                    <li>Shipping charges and estimated delivery times vary by city and are displayed at checkout.</li>
+                    <li>Free shipping is available on orders above the threshold (varies by city).</li>
+                    <li>Delivery timelines are estimates and may be affected by holidays, weather, or courier delays.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-serif font-bold text-charcoal mb-3">6. Returns &amp; Exchanges</h2>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Returns are accepted within <strong>7 days</strong> of delivery for items in unused, original condition with tags attached.</li>
+                    <li>Custom/personalized orders are <strong>non-returnable</strong>.</li>
+                    <li>The customer bears the return shipping cost unless the item is defective or incorrect.</li>
+                    <li>Refunds are processed within 5-7 business days after receiving the returned item.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-serif font-bold text-charcoal mb-3">7. Intellectual Property</h2>
+                <p>All content on this website — including designs, photographs, text, logos, and brand elements — is the property of Warm Hook Hugs and is protected by Pakistan's intellectual property laws. Unauthorized reproduction or distribution is prohibited.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-serif font-bold text-charcoal mb-3">8. Limitation of Liability</h2>
+                <p>Warm Hook Hugs shall not be liable for any indirect, incidental, or consequential damages arising from the use of our website or products. Our total liability shall not exceed the amount paid for the product in question.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-serif font-bold text-charcoal mb-3">9. Governing Law</h2>
+                <p>These terms are governed by the laws of Pakistan. Any disputes shall be resolved exclusively in the courts of Karachi, Sindh.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-serif font-bold text-charcoal mb-3">10. Contact</h2>
+                <p>Questions about these terms? Reach out at <strong>hello@warmhookhugs.pk</strong> or via our <a href="{% url 'store:contact' %}" class="text-terracotta hover:underline">contact page</a>.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

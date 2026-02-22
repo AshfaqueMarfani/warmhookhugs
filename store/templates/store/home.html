@@ -1,0 +1,256 @@
+{% extends 'store/base.html' %}
+{% load static store_tags %}
+{% load humanize %}
+
+{% block title %}Premium Handcrafted Crochet & Knitwear{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- HERO SECTION                                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="relative bg-warmcream overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <p class="text-sm uppercase tracking-[0.3em] text-terracotta font-medium">
+                    Handcrafted in Pakistan
+                </p>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-charcoal leading-[1.1]">
+                    Woven with<br>
+                    <span class="text-terracotta italic">Intention.</span><br>
+                    Crafted for<br>
+                    <span class="text-sage italic">Generations.</span>
+                </h1>
+                <p class="text-lg text-stone-600 leading-relaxed max-w-md">
+                    Every loop and stitch is a testament to slow fashion,
+                    bringing authentic, tactile warmth into the modern home.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="{% url 'store:all_products' %}"
+                       class="inline-block bg-charcoal text-cream px-8 py-4 text-sm uppercase tracking-widest font-medium hover:bg-terracotta transition-all duration-300 rounded-sm">
+                        Shop the Collection
+                    </a>
+                    <a href="{% url 'store:our_story' %}"
+                       class="inline-block border-2 border-charcoal text-charcoal px-8 py-4 text-sm uppercase tracking-widest font-medium hover:bg-charcoal hover:text-cream transition-all duration-300 rounded-sm">
+                        Our Story
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="aspect-[4/5] bg-beige/40 rounded-2xl overflow-hidden flex items-center justify-center">
+                    <div class="text-center p-8">
+                        <span class="text-8xl">🧶</span>
+                        <p class="mt-4 text-stone-500 text-sm italic">Add your hero image via Admin</p>
+                    </div>
+                </div>
+                <!-- Floating badge -->
+                <div class="absolute -bottom-4 -left-4 bg-white shadow-xl rounded-xl px-6 py-4">
+                    <p class="text-xs text-stone-500 uppercase tracking-wider">100% Handmade</p>
+                    <p class="text-lg font-serif font-bold text-charcoal">With Love & Care</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- VALUE PROPOSITIONS                              -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="bg-white py-12 border-y border-beige/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="space-y-2">
+                <span class="text-3xl">✋</span>
+                <h3 class="text-sm font-semibold uppercase tracking-wider text-charcoal">100% Handcrafted</h3>
+                <p class="text-xs text-stone-500">No machines. Pure artistry.</p>
+            </div>
+            <div class="space-y-2">
+                <span class="text-3xl">🌿</span>
+                <h3 class="text-sm font-semibold uppercase tracking-wider text-charcoal">Premium Yarns</h3>
+                <p class="text-xs text-stone-500">Organic cotton & merino wool.</p>
+            </div>
+            <div class="space-y-2">
+                <span class="text-3xl">🚚</span>
+                <h3 class="text-sm font-semibold uppercase tracking-wider text-charcoal">Nationwide Delivery</h3>
+                <p class="text-xs text-stone-500">Free above PKR 5,000.</p>
+            </div>
+            <div class="space-y-2">
+                <span class="text-3xl">💳</span>
+                <h3 class="text-sm font-semibold uppercase tracking-wider text-charcoal">Cash on Delivery</h3>
+                <p class="text-xs text-stone-500">OTP-verified for security.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- CATEGORIES                                      -->
+<!-- ═══════════════════════════════════════════════ -->
+{% if categories %}
+<section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+            <p class="text-sm uppercase tracking-[0.3em] text-terracotta font-medium mb-3">Our Collections</p>
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-charcoal">Explore the Craft</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-{{ categories|length|default:"3" }} gap-6">
+            {% for cat in categories %}
+            <a href="{{ cat.get_absolute_url }}"
+               class="group relative aspect-[3/4] bg-warmcream rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500">
+                {% if cat.image %}
+                <img src="{{ cat.image.url }}" alt="{{ cat.name }}"
+                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent"></div>
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-beige/30 to-warmcream">
+                    <span class="text-6xl opacity-40">🧶</span>
+                </div>
+                {% endif %}
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 class="text-xl md:text-2xl font-serif font-bold {% if cat.image %}text-white{% else %}text-charcoal{% endif %}">
+                        {{ cat.name }}
+                    </h3>
+                    {% if cat.description %}
+                    <p class="text-sm {% if cat.image %}text-stone-200{% else %}text-stone-600{% endif %} mt-1">
+                        {{ cat.description|truncatewords:12 }}
+                    </p>
+                    {% endif %}
+                    <span class="inline-block mt-3 text-xs uppercase tracking-widest {% if cat.image %}text-terracotta{% else %}text-terracotta{% endif %} font-semibold group-hover:translate-x-2 transition-transform duration-300">
+                        Explore →
+                    </span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- FEATURED PRODUCTS                               -->
+<!-- ═══════════════════════════════════════════════ -->
+{% if featured_products %}
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+            <p class="text-sm uppercase tracking-[0.3em] text-terracotta font-medium mb-3">Curated For You</p>
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-charcoal">Featured Pieces</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {% for product in featured_products %}
+            <a href="{{ product.get_absolute_url }}" class="group">
+                <div class="aspect-square bg-warmcream rounded-xl overflow-hidden mb-4 relative">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center">
+                        <span class="text-5xl opacity-30">🧶</span>
+                    </div>
+                    {% endif %}
+                    {% if product.is_on_sale %}
+                    <span class="absolute top-3 left-3 bg-terracotta text-white text-xs px-3 py-1 rounded-full font-medium">
+                        -{{ product.discount_percentage }}%
+                    </span>
+                    {% endif %}
+                    {% if not product.in_stock %}
+                    <div class="absolute inset-0 bg-charcoal/40 flex items-center justify-center">
+                        <span class="bg-white/90 text-charcoal text-xs uppercase tracking-widest px-4 py-2 rounded-full font-semibold">Sold Out</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <h3 class="text-sm font-medium text-charcoal group-hover:text-terracotta transition-colors truncate">
+                    {{ product.title }}
+                </h3>
+                <div class="mt-1 flex items-center gap-2">
+                    <span class="text-sm font-bold text-charcoal">{{ product.price|pkr }}</span>
+                    {% if product.is_on_sale %}
+                    <span class="text-xs text-stone-400 line-through">{{ product.compare_at_price|pkr }}</span>
+                    {% endif %}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-12">
+            <a href="{% url 'store:all_products' %}"
+               class="inline-block border-2 border-charcoal text-charcoal px-10 py-4 text-sm uppercase tracking-widest font-medium hover:bg-charcoal hover:text-cream transition-all duration-300 rounded-sm">
+                View All Products
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- LATEST PRODUCTS                                 -->
+<!-- ═══════════════════════════════════════════════ -->
+{% if latest_products %}
+<section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+            <p class="text-sm uppercase tracking-[0.3em] text-sage font-medium mb-3">Fresh From The Hook</p>
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-charcoal">New Arrivals</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {% for product in latest_products %}
+            <a href="{{ product.get_absolute_url }}" class="group">
+                <div class="aspect-square bg-warmcream rounded-xl overflow-hidden mb-4 relative">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center">
+                        <span class="text-5xl opacity-30">🧶</span>
+                    </div>
+                    {% endif %}
+                    <span class="absolute top-3 left-3 bg-sage text-white text-xs px-3 py-1 rounded-full font-medium">New</span>
+                </div>
+                <h3 class="text-sm font-medium text-charcoal group-hover:text-terracotta transition-colors truncate">
+                    {{ product.title }}
+                </h3>
+                <span class="text-sm font-bold text-charcoal">{{ product.price|pkr }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- BRAND STORY CTA                                 -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="bg-warmcream py-20">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <p class="text-sm uppercase tracking-[0.3em] text-terracotta font-medium mb-4">The Art of the Hook</p>
+        <h2 class="text-3xl md:text-5xl font-serif font-bold text-charcoal leading-tight mb-6">
+            Every piece tells a story of patience, craft, and care.
+        </h2>
+        <p class="text-stone-600 leading-relaxed max-w-2xl mx-auto mb-10">
+            From selecting premium organic yarns to the final stitch,
+            our artisans pour their heart into every creation.
+            This isn't mass production — this is handcrafted heritage.
+        </p>
+        <a href="{% url 'store:our_story' %}"
+           class="inline-block bg-terracotta text-cream px-10 py-4 text-sm uppercase tracking-widest font-medium hover:bg-terracotta-dark transition-all duration-300 rounded-sm">
+            Discover Our Story
+        </a>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- INSTAGRAM CTA                                   -->
+<!-- ═══════════════════════════════════════════════ -->
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <p class="text-sm uppercase tracking-[0.3em] text-sage font-medium mb-3">Follow the Thread</p>
+        <h2 class="text-2xl md:text-3xl font-serif font-bold text-charcoal mb-4">@warmhookhugs.pk</h2>
+        <p class="text-stone-500 mb-8">Join our community of craft lovers on Instagram</p>
+        <a href="https://www.instagram.com/warmhookhugs.pk" target="_blank"
+           class="inline-block border-2 border-terracotta text-terracotta px-8 py-3 text-sm uppercase tracking-widest font-medium hover:bg-terracotta hover:text-cream transition-all duration-300 rounded-sm">
+            Follow Us
+        </a>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'store/base.html' %}
+{% load static store_tags %}
+
+{% block title %}Your Bag{% endblock %}
+{% block newsletter %}{% endblock %}
+
+{% block content %}
+
+<section class="py-12 md:py-20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl md:text-4xl font-serif font-bold text-charcoal mb-10">Your Bag</h1>
+
+        {% if cart_items %}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+            <!-- Cart Items -->
+            <div class="lg:col-span-2 space-y-6">
+                {% for item in cart_items %}
+                <div class="flex gap-6 bg-white rounded-xl p-4 border border-beige/30">
+                    <div class="w-24 h-24 md:w-32 md:h-32 bg-warmcream rounded-lg overflow-hidden flex-shrink-0">
+                        {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.title }}" class="w-full h-full object-cover">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center"><span class="text-3xl opacity-30">🧶</span></div>
+                        {% endif %}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <a href="{{ item.product.get_absolute_url }}" class="font-medium text-charcoal hover:text-terracotta transition-colors">
+                            {{ item.product.title }}
+                        </a>
+                        <p class="text-xs text-stone-500 mt-1">{{ item.product.category.name }}</p>
+                        {% if item.size %}<p class="text-xs text-stone-500">Size: {{ item.size }}</p>{% endif %}
+                        {% if item.color %}<p class="text-xs text-stone-500">Color: {{ item.color }}</p>{% endif %}
+                        <p class="text-sm font-bold text-charcoal mt-2">{{ item.line_total|pkr }}</p>
+                        <div class="flex items-center gap-4 mt-3">
+                            <form method="POST" action="{% url 'store:update_cart' item.product.id %}" class="flex items-center gap-2">
+                                {% csrf_token %}
+                                <label class="text-xs text-stone-500">Qty:</label>
+                                <select name="qty" onchange="this.form.submit()"
+                                        class="text-sm border border-stone-200 rounded-md px-2 py-1 bg-white focus:ring-2 focus:ring-terracotta">
+                                    {% for i in "12345678910"|make_list %}
+                                    <option value="{{ forloop.counter }}" {% if forloop.counter == item.qty %}selected{% endif %}>
+                                        {{ forloop.counter }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                            <form method="POST" action="{% url 'store:remove_from_cart' item.product.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="text-xs text-stone-400 hover:text-red-500 transition-colors underline">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Order Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl p-6 border border-beige/30 sticky top-24 space-y-6">
+                    <h3 class="text-lg font-serif font-bold text-charcoal">Order Summary</h3>
+
+                    <!-- Coupon Code -->
+                    {% if coupon_code %}
+                    <div class="flex items-center justify-between bg-sage/10 border border-sage/30 rounded-lg px-4 py-3 text-sm">
+                        <div>
+                            <span class="text-sage-dark font-medium">🏷️ {{ coupon_code }}</span>
+                            <span class="text-sage-dark ml-1">- {{ discount|pkr }}</span>
+                        </div>
+                        <a href="{% url 'store:remove_coupon' %}" class="text-xs text-stone-400 hover:text-red-500">&times; Remove</a>
+                    </div>
+                    {% else %}
+                    <form method="POST" action="{% url 'store:apply_coupon' %}" class="flex gap-2">
+                        {% csrf_token %}
+                        <input type="text" name="coupon_code" placeholder="Coupon code"
+                               class="flex-1 text-sm border border-stone-200 rounded-lg px-3 py-2 focus:ring-2 focus:ring-terracotta focus:border-transparent uppercase">
+                        <button type="submit" class="bg-charcoal text-cream px-4 py-2 text-sm rounded-lg hover:bg-terracotta transition-colors">Apply</button>
+                    </form>
+                    {% endif %}
+
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between text-stone-600">
+                            <span>Subtotal</span>
+                            <span>{{ cart_total|pkr }}</span>
+                        </div>
+                        {% if discount %}
+                        <div class="flex justify-between text-sage-dark">
+                            <span>Discount</span>
+                            <span>- {{ discount|pkr }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="flex justify-between text-stone-600">
+                            <span>Delivery</span>
+                            <span class="{% if is_free_shipping %}text-sage font-medium{% endif %}">
+                                {% if is_free_shipping %}Free{% else %}{{ shipping_cost|pkr }}{% endif %}
+                            </span>
+                        </div>
+                        {% if not is_free_shipping %}
+                        <p class="text-xs text-stone-400">Free delivery on orders above PKR 5,000</p>
+                        {% endif %}
+                        <div class="border-t border-beige/50 pt-3 flex justify-between">
+                            <span class="font-bold text-charcoal">Total</span>
+                            <span class="font-bold text-charcoal text-lg">{{ grand_total|pkr }}</span>
+                        </div>
+                    </div>
+                    <div class="text-xs text-stone-400 text-center">Payment: Cash on Delivery (OTP Verified)</div>
+
+                    <a href="{% url 'store:checkout' %}"
+                       class="block w-full bg-charcoal text-cream text-center py-4 text-sm uppercase tracking-widest font-medium hover:bg-terracotta transition-all duration-300 rounded-lg">
+                        Proceed to Checkout
+                    </a>
+                    <a href="{% url 'store:all_products' %}"
+                       class="block w-full text-center text-sm text-terracotta hover:underline">
+                        ← Continue Shopping
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="text-center py-20">
+            <span class="text-6xl opacity-30">🧶</span>
+            <h2 class="mt-6 text-2xl font-serif font-bold text-charcoal">Your bag is empty</h2>
+            <p class="text-stone-500 mt-2 max-w-md mx-auto">
+                Discover our handcrafted pieces — each one made with love and premium yarns.
+            </p>
+            <a href="{% url 'store:all_products' %}"
+               class="inline-block mt-8 bg-charcoal text-cream px-10 py-4 text-sm uppercase tracking-widest font-medium hover:bg-terracotta transition-all duration-300 rounded-sm">
+                Start Shopping
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

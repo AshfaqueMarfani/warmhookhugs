@@ -1,0 +1,15 @@
+# Warm Hook Hugs — robots.txt
+# https://warmhookhugs.pk/robots.txt
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /verify-otp/
+Disallow: /account/
+Disallow: /wishlist/toggle/
+Disallow: /shipping/calculate/
+Disallow: /search/autocomplete/
+
+Sitemap: https://warmhookhugs.pk/sitemap.xml

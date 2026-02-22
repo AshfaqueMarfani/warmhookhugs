@@ -1,0 +1,226 @@
+/*
+ * Warm Hook Hugs — Custom CSS
+ * ============================
+ * Supplements Tailwind CSS with brand-specific utilities.
+ * Palette: Terracotta, Beige, Sage Green, Warm Cream, Charcoal
+ */
+
+/* ── Smooth scrollbar ── */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #FDF8F0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D4C5A9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #C2703E;
+}
+
+/* ── Selection ── */
+::selection {
+    background-color: #C2703E;
+    color: #FDF8F0;
+}
+
+/* ── Smooth transitions ── */
+* {
+    scroll-behavior: smooth;
+}
+
+/* ── Image zoom container ── */
+#main-image-container {
+    overflow: hidden;
+}
+
+#main-image {
+    transition: transform 0.3s ease;
+}
+
+/* ── Loading skeleton ── */
+.skeleton {
+    background: linear-gradient(90deg, #FAF0E4 25%, #FDF8F0 50%, #FAF0E4 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ── Fade in animation ── */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Star Rating Component ── */
+.star-rating {
+    display: inline-flex;
+    gap: 4px;
+    direction: rtl;       /* enables hover-fill from right */
+}
+
+.star-rating .star-btn {
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    cursor: pointer;
+    color: #D4C5A9;
+    transition: color 0.15s ease, transform 0.15s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.star-rating .star-btn:hover,
+.star-rating .star-btn:hover ~ .star-btn,
+.star-rating .star-btn.active,
+.star-rating .star-btn.active ~ .star-btn {
+    color: #C2703E;
+    transform: scale(1.1);
+}
+
+.star-display {
+    display: inline-flex;
+    gap: 2px;
+    color: #C2703E;
+    font-size: 0.875rem;
+}
+
+.star-display .empty {
+    color: #D4C5A9;
+}
+
+/* ── Cookie Consent Banner ── */
+.cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+.cookie-consent.visible {
+    transform: translateY(0);
+}
+
+/* ── WhatsApp Floating Widget ── */
+.whatsapp-widget {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+}
+
+.whatsapp-widget a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background-color: #25D366;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-widget a:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-widget .pulse-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid #25D366;
+    animation: wa-pulse 2s infinite;
+}
+
+@keyframes wa-pulse {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* ── Search Dropdown ── */
+.search-dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.search-dropdown.open {
+    max-height: 120px;
+    opacity: 1;
+}
+
+/* ── Autocomplete Results ── */
+.autocomplete-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 50;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.autocomplete-results a {
+    display: block;
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    color: #3D3D3D;
+    transition: background 0.15s;
+}
+
+.autocomplete-results a:hover {
+    background-color: #FAF0E4;
+}
+
+/* ── Toast Message Animation ── */
+.toast-enter {
+    animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ── Quantity Stepper ── */
+.qty-stepper button {
+    transition: background-color 0.15s ease;
+}
+
+.qty-stepper button:hover {
+    background-color: #FAF0E4;
+}
+
+/* ── Product Card Hover ── */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}

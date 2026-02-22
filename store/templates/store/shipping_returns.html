@@ -1,0 +1,101 @@
+{% extends 'store/base.html' %}
+{% load store_tags %}
+{% block title %}Shipping & Returns — Warm Hook Hugs{% endblock %}
+{% block meta_description %}Learn about Warm Hook Hugs shipping rates, delivery times, and return policy for all Pakistan orders.{% endblock %}
+{% block newsletter %}{% endblock %}
+
+{% block content %}
+<section class="py-12 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl font-serif font-bold text-charcoal mb-10">Shipping &amp; Returns</h1>
+
+        <!-- Shipping Info -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-serif font-bold text-charcoal mb-6">Shipping Information</h2>
+
+            <div class="bg-white rounded-xl border border-beige/30 overflow-hidden mb-6">
+                <div class="grid grid-cols-4 text-xs font-semibold text-stone-500 uppercase tracking-wider bg-warmcream/50 px-6 py-3">
+                    <span>City</span>
+                    <span>Rate</span>
+                    <span>Free Above</span>
+                    <span>Est. Delivery</span>
+                </div>
+                {% for rate in shipping_rates %}
+                <div class="grid grid-cols-4 px-6 py-4 text-sm border-t border-beige/30 {% cycle '' 'bg-warmcream/20' %}">
+                    <span class="font-medium text-charcoal">{{ rate.city }}</span>
+                    <span class="text-stone-600">{{ rate.rate|pkr }}</span>
+                    <span class="text-stone-600">{{ rate.free_above|pkr }}</span>
+                    <span class="text-stone-600">{{ rate.estimated_days }}</span>
+                </div>
+                {% empty %}
+                <div class="px-6 py-4 text-sm text-stone-500">Shipping rates will be displayed at checkout.</div>
+                {% endfor %}
+            </div>
+
+            <div class="space-y-4 text-sm text-stone-600 leading-relaxed">
+                <div class="flex gap-3">
+                    <span class="text-terracotta mt-0.5">📦</span>
+                    <p>We ship <strong>nationwide across Pakistan</strong> via trusted courier partners.</p>
+                </div>
+                <div class="flex gap-3">
+                    <span class="text-terracotta mt-0.5">🚚</span>
+                    <p>Orders are dispatched within <strong>1-2 business days</strong> after OTP verification.</p>
+                </div>
+                <div class="flex gap-3">
+                    <span class="text-terracotta mt-0.5">📱</span>
+                    <p>You'll receive a <strong>tracking number</strong> via WhatsApp/email once your order ships.</p>
+                </div>
+                <div class="flex gap-3">
+                    <span class="text-terracotta mt-0.5">💰</span>
+                    <p>Payment is <strong>Cash on Delivery (COD)</strong> only. Please have the exact amount ready.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Returns Policy -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-serif font-bold text-charcoal mb-6">Return &amp; Exchange Policy</h2>
+
+            <div class="space-y-6 text-sm text-stone-600 leading-relaxed">
+                <div class="bg-sage/10 rounded-xl p-6">
+                    <h3 class="font-bold text-charcoal mb-2">Eligible for Return</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Items in <strong>unused, original condition</strong> with tags attached.</li>
+                        <li>Return request made within <strong>7 days</strong> of delivery.</li>
+                        <li>Items received damaged, defective, or incorrect.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50/50 rounded-xl p-6">
+                    <h3 class="font-bold text-charcoal mb-2">Not Eligible for Return</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Custom/personalized</strong> orders.</li>
+                        <li>Items that have been <strong>used, washed, or altered</strong>.</li>
+                        <li>Items returned after the <strong>7-day window</strong>.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-warmcream/50 rounded-xl p-6">
+                    <h3 class="font-bold text-charcoal mb-2">How to Return</h3>
+                    <ol class="list-decimal pl-5 space-y-1">
+                        <li>Contact us via WhatsApp or email within 7 days of delivery.</li>
+                        <li>Provide your order ID and reason for return.</li>
+                        <li>Ship the item back to our Karachi address (customer bears return shipping unless item is defective).</li>
+                        <li>Refund is processed within <strong>5-7 business days</strong> after we receive the item.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="text-center bg-warmcream/50 rounded-xl p-8">
+            <h3 class="text-xl font-serif font-bold text-charcoal mb-2">Have Questions?</h3>
+            <p class="text-sm text-stone-500 mb-4">We're here to help with any shipping or return inquiries.</p>
+            <a href="{% url 'store:contact' %}"
+               class="inline-block bg-charcoal text-cream px-8 py-3 text-sm uppercase tracking-widest font-medium hover:bg-terracotta transition-all rounded-sm">
+                Contact Us
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

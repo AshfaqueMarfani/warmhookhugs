@@ -1,0 +1,65 @@
+{% extends 'store/base.html' %}
+{% load static store_tags %}
+
+{% block title %}Payment Failed{% endblock %}
+
+{% block content %}
+
+<section class="py-20 md:py-32">
+    <div class="max-w-2xl mx-auto px-4 text-center">
+        <!-- Error Icon -->
+        <div class="w-24 h-24 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-8">
+            <svg class="w-12 h-12 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+            </svg>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-serif font-bold text-charcoal">Payment Failed</h1>
+        <p class="text-lg text-stone-600 mt-4">
+            We were unable to process your payment. Don't worry — no amount has been charged.
+        </p>
+
+        <!-- Order Info Card -->
+        <div class="bg-white rounded-xl border border-beige/30 p-8 mt-10 text-left">
+            <div class="text-center mb-6">
+                <p class="text-sm text-stone-500 uppercase tracking-wider">Order ID</p>
+                <p class="text-2xl font-mono font-bold text-charcoal mt-1">{{ order.short_id }}</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 text-sm border-t border-beige/50 pt-6">
+                <div>
+                    <p class="text-stone-500 mb-1">Payment Method</p>
+                    <p class="font-medium text-charcoal">{{ order.get_payment_method_display }}</p>
+                </div>
+                <div>
+                    <p class="text-stone-500 mb-1">Amount</p>
+                    <p class="font-medium text-charcoal">{{ order.total|pkr }}</p>
+                </div>
+                <div>
+                    <p class="text-stone-500 mb-1">Status</p>
+                    <span class="inline-block bg-red-100 text-red-700 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider">
+                        Payment Failed
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="{% url 'store:checkout' %}"
+               class="inline-block bg-charcoal text-cream px-10 py-4 text-sm uppercase tracking-widest font-medium hover:bg-terracotta transition-all duration-300 rounded-sm">
+                Try Again
+            </a>
+            <a href="{% url 'store:contact' %}"
+               class="inline-block border-2 border-charcoal text-charcoal px-10 py-4 text-sm uppercase tracking-widest font-medium hover:bg-charcoal hover:text-cream transition-all duration-300 rounded-sm">
+                Contact Support
+            </a>
+        </div>
+
+        <p class="text-sm text-stone-400 mt-6">
+            If any amount was deducted, it will be refunded within 3-5 business days.
+        </p>
+    </div>
+</section>
+
+{% endblock %}

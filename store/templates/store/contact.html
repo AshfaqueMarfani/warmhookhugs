@@ -1,0 +1,98 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+{% block meta_description %}Get in touch with Warm Hook Hugs. We'd love to hear from you about custom orders, queries, or collaborations.{% endblock %}
+
+{% block content %}
+
+<section class="bg-warmcream py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-sm uppercase tracking-[0.3em] text-terracotta font-medium mb-3">Get In Touch</p>
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-charcoal">Contact Us</h1>
+        <p class="mt-4 text-stone-600 max-w-xl mx-auto">Have a question, custom order request, or just want to say hello? We'd love to hear from you.</p>
+    </div>
+</section>
+
+<section class="py-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+            <!-- Contact Form -->
+            <div class="lg:col-span-2">
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-charcoal mb-1">Your Name *</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.name.errors.0 }}</p>{% endif %}
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-charcoal mb-1">Email *</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}<p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-charcoal mb-1">Phone</label>
+                            {{ form.phone }}
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-charcoal mb-1">Subject *</label>
+                            {{ form.subject }}
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-charcoal mb-1">Order ID <span class="text-xs text-stone-400">(if applicable)</span></label>
+                        {{ form.order_id }}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-charcoal mb-1">Message *</label>
+                        {{ form.message }}
+                        {% if form.message.errors %}<p class="text-red-500 text-xs mt-1">{{ form.message.errors.0 }}</p>{% endif %}
+                    </div>
+                    <button type="submit"
+                            class="bg-charcoal text-cream px-10 py-4 text-sm uppercase tracking-widest font-medium hover:bg-terracotta transition-all duration-300 rounded-lg">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="space-y-8">
+                <div class="bg-white rounded-xl p-6 border border-beige/30">
+                    <h3 class="text-sm font-semibold uppercase tracking-widest text-charcoal mb-4">Quick Contact</h3>
+                    <div class="space-y-4 text-sm text-stone-600">
+                        <div class="flex items-start gap-3">
+                            <span class="text-lg mt-0.5">📍</span>
+                            <span>{{ brand_address }}</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-lg mt-0.5">📞</span>
+                            <span>{{ brand_phone }}</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-lg mt-0.5">✉️</span>
+                            <a href="mailto:{{ brand_email }}" class="text-terracotta hover:underline">{{ brand_email }}</a>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-lg mt-0.5">📱</span>
+                            <a href="{{ brand_whatsapp }}" target="_blank" class="text-terracotta hover:underline">Chat on WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-6 border border-beige/30">
+                    <h3 class="text-sm font-semibold uppercase tracking-widest text-charcoal mb-4">Response Time</h3>
+                    <p class="text-sm text-stone-600">We typically respond within <strong>24-48 hours</strong>. For urgent queries, WhatsApp is the fastest way to reach us.</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 border border-beige/30">
+                    <h3 class="text-sm font-semibold uppercase tracking-widest text-charcoal mb-4">Custom Orders</h3>
+                    <p class="text-sm text-stone-600">Looking for a bespoke piece? We accept custom crochet & knit orders. Share your vision and we'll bring it to life!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'store/base.html' %}
+{% load static store_tags %}
+
+{% block title %}Shop All Products{% endblock %}
+{% block meta_description %}Browse our full collection of premium handcrafted crochet & knitwear. Amigurumi, baby gifts, home décor & more.{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="bg-warmcream py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <p class="text-sm uppercase tracking-[0.3em] text-terracotta font-medium mb-3">The Full Collection</p>
+            <h1 class="text-4xl md:text-6xl font-serif font-bold text-charcoal">Shop All</h1>
+            <p class="mt-4 text-stone-600 max-w-xl mx-auto">
+                Every piece is handcrafted with premium yarns and authentic artisan technique.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Filters & Sorting Bar -->
+<div class="bg-white border-b border-beige/30 sticky top-20 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+        <!-- Category pills -->
+        {% if categories %}
+        <div class="flex flex-wrap gap-2 justify-center mb-4">
+            <a href="{% url 'store:all_products' %}{% if current_sort %}?sort={{ current_sort }}{% endif %}"
+               class="px-5 py-2 text-sm rounded-full border-2 {% if not current_category %}border-charcoal bg-charcoal text-cream{% else %}border-stone-200 text-stone-600 hover:border-terracotta hover:text-terracotta{% endif %} font-medium transition-all">
+                All
+            </a>
+            {% for cat in categories %}
+            <a href="{% url 'store:all_products' %}?category={{ cat.slug }}{% if current_sort %}&sort={{ current_sort }}{% endif %}"
+               class="px-5 py-2 text-sm rounded-full border-2 {% if current_category == cat.slug %}border-charcoal bg-charcoal text-cream{% else %}border-stone-200 text-stone-600 hover:border-terracotta hover:text-terracotta{% endif %} font-medium transition-all">
+                {{ cat.name }}
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- Sort dropdown -->
+        <div class="flex items-center justify-between">
+            <p class="text-sm text-stone-500">{{ products.paginator.count }} piece{{ products.paginator.count|pluralize }}</p>
+            <div class="flex items-center gap-2">
+                <label class="text-xs text-stone-500 uppercase tracking-wider">Sort:</label>
+                <select onchange="window.location.href=this.value"
+                        class="text-sm border border-stone-200 rounded-lg px-3 py-2 bg-white focus:ring-2 focus:ring-terracotta cursor-pointer">
+                    <option value="{% url 'store:all_products' %}?{% if current_category %}category={{ current_category }}&{% endif %}sort=newest" {% if current_sort == 'newest' %}selected{% endif %}>Newest</option>
+                    <option value="{% url 'store:all_products' %}?{% if current_category %}category={{ current_category }}&{% endif %}sort=price_low" {% if current_sort == 'price_low' %}selected{% endif %}>Price: Low → High</option>
+                    <option value="{% url 'store:all_products' %}?{% if current_category %}category={{ current_category }}&{% endif %}sort=price_high" {% if current_sort == 'price_high' %}selected{% endif %}>Price: High → Low</option>
+                    <option value="{% url 'store:all_products' %}?{% if current_category %}category={{ current_category }}&{% endif %}sort=name" {% if current_sort == 'name' %}selected{% endif %}>Name A-Z</option>
+                    <option value="{% url 'store:all_products' %}?{% if current_category %}category={{ current_category }}&{% endif %}sort=popular" {% if current_sort == 'popular' %}selected{% endif %}>Most Popular</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Products Grid -->
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {% if products %}
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {% for product in products %}
+            <a href="{{ product.get_absolute_url }}" class="group">
+                <div class="aspect-square bg-warmcream rounded-xl overflow-hidden mb-4 relative">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}" loading="lazy"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center">
+                        <span class="text-5xl opacity-30">🧶</span>
+                    </div>
+                    {% endif %}
+                    {% if product.is_on_sale %}
+                    <span class="absolute top-3 left-3 bg-terracotta text-white text-xs px-3 py-1 rounded-full font-medium">
+                        -{{ product.discount_percentage }}%
+                    </span>
+                    {% endif %}
+                    {% if not product.in_stock %}
+                    <div class="absolute inset-0 bg-charcoal/40 flex items-center justify-center">
+                        <span class="bg-white/90 text-charcoal text-xs uppercase tracking-widest px-4 py-2 rounded-full font-semibold">Sold Out</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <p class="text-xs text-terracotta uppercase tracking-wider mb-1">{{ product.category.name }}</p>
+                <h3 class="text-sm font-medium text-charcoal group-hover:text-terracotta transition-colors">
+                    {{ product.title }}
+                </h3>
+                <div class="mt-1 flex items-center gap-2">
+                    <span class="text-sm font-bold text-charcoal">{{ product.price|pkr }}</span>
+                    {% if product.is_on_sale %}
+                    <span class="text-xs text-stone-400 line-through">{{ product.compare_at_price|pkr }}</span>
+                    {% endif %}
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if products.has_other_pages %}
+        <nav class="mt-16 flex justify-center items-center gap-2" aria-label="Pagination">
+            {% if products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}"
+               class="px-4 py-2 text-sm border border-stone-200 rounded-lg hover:border-terracotta hover:text-terracotta transition-all">&laquo; Prev</a>
+            {% endif %}
+            {% for num in products.paginator.page_range %}
+                {% if products.number == num %}
+                <span class="px-4 py-2 text-sm rounded-lg bg-charcoal text-cream font-medium">{{ num }}</span>
+                {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                <a href="?page={{ num }}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}"
+                   class="px-4 py-2 text-sm border border-stone-200 rounded-lg hover:border-terracotta hover:text-terracotta transition-all">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_category %}&category={{ current_category }}{% endif %}"
+               class="px-4 py-2 text-sm border border-stone-200 rounded-lg hover:border-terracotta hover:text-terracotta transition-all">Next &raquo;</a>
+            {% endif %}
+        </nav>
+        {% endif %}
+
+        {% else %}
+        <div class="text-center py-20">
+            <span class="text-6xl opacity-30">🧶</span>
+            <h3 class="mt-4 text-xl font-serif text-charcoal">Collection Coming Soon</h3>
+            <p class="text-stone-500 mt-2">Our artisans are crafting beautiful pieces. Check back soon!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'store/base.html' %}
+{% block title %}FAQ — Warm Hook Hugs{% endblock %}
+{% block meta_description %}Frequently asked questions about Warm Hook Hugs handcrafted crochet products, orders, shipping, returns, and more.{% endblock %}
+{% block newsletter %}{% endblock %}
+
+{% block content %}
+<section class="py-12 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl font-serif font-bold text-charcoal mb-4">Frequently Asked Questions</h1>
+        <p class="text-stone-500 mb-10">Everything you need to know about shopping with Warm Hook Hugs.</p>
+
+        <div class="space-y-4" id="faq-accordion">
+
+            <!-- FAQ Item -->
+            <details class="group bg-white rounded-xl border border-beige/30 overflow-hidden" open>
+                <summary class="cursor-pointer px-6 py-5 flex items-center justify-between text-charcoal font-medium hover:bg-warmcream/30 transition-colors">
+                    <span>Are your products really handmade?</span>
+                    <svg class="w-5 h-5 text-terracotta transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <div class="px-6 pb-5 text-sm text-stone-600 leading-relaxed">
+                    Yes! Every single item at Warm Hook Hugs is <strong>100% handcrafted</strong> using premium crochet techniques. Each piece is made with love by skilled artisans in Pakistan. Due to the handmade nature, slight variations in colour and texture may occur — this is what makes each piece unique.
+                </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-beige/30 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-5 flex items-center justify-between text-charcoal font-medium hover:bg-warmcream/30 transition-colors">
+                    <span>What payment methods do you accept?</span>
+                    <svg class="w-5 h-5 text-terracotta transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <div class="px-6 pb-5 text-sm text-stone-600 leading-relaxed">
+                    Currently we accept <strong>Cash on Delivery (COD)</strong> only, available nationwide across Pakistan. Please have the exact amount ready at the time of delivery. We plan to add online payment options (JazzCash, EasyPaisa, bank transfer) soon.
+                </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-beige/30 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-5 flex items-center justify-between text-charcoal font-medium hover:bg-warmcream/30 transition-colors">
+                    <span>What is OTP verification?</span>
+                    <svg class="w-5 h-5 text-terracotta transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <div class="px-6 pb-5 text-sm text-stone-600 leading-relaxed">
+                    To prevent fake orders, we send a <strong>one-time password (OTP)</strong> to your WhatsApp when you place an order. Simply enter the 6-digit code to confirm your order. This protects both you and us from fraudulent orders.
+                </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-beige/30 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-5 flex items-center justify-between text-charcoal font-medium hover:bg-warmcream/30 transition-colors">
+                    <span>How long does delivery take?</span>
+                    <svg class="w-5 h-5 text-terracotta transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <div class="px-6 pb-5 text-sm text-stone-600 leading-relaxed">
+                    Delivery times vary by location:
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li><strong>Karachi:</strong> 2-3 business days</li>
+                        <li><strong>Lahore / Islamabad:</strong> 3-5 business days</li>
+                        <li><strong>Other cities:</strong> 3-7 business days</li>
+                    </ul>
+                    Orders are dispatched within 1-2 business days after OTP verification. Check our <a href="{% url 'store:shipping_returns' %}" class="text-terracotta hover:underline">Shipping &amp; Returns</a> page for detailed rates.
+                </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-beige/30 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-5 flex items-center justify-between text-charcoal font-medium hover:bg-warmcream/30 transition-colors">
+                    <span>Do you offer free shipping?</span>
+                    <svg class="w-5 h-5 text-terracotta transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <div class="px-6 pb-5 text-sm text-stone-600 leading-relaxed">
+                    Yes! We offer <strong>free shipping</strong> on orders above a certain amount (varies by city). Typically, orders above PKR 3,000-5,000 qualify for free delivery. The exact threshold is shown at checkout.
+                </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-beige/30 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-5 flex items-center justify-between text-charcoal font-medium hover:bg-warmcream/30 transition-colors">
+                    <span>Can I return or exchange a product?</span>
+                    <svg class="w-5 h-5 text-terracotta transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <div class="px-6 pb-5 text-sm text-stone-600 leading-relaxed">
+                    We accept returns within <strong>7 days</strong> of delivery for items in unused, original condition with tags attached. Custom/personalized orders are non-returnable. See our full <a href="{% url 'store:shipping_returns' %}" class="text-terracotta hover:underline">Return Policy</a> for details.
+                </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-beige/30 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-5 flex items-center justify-between text-charcoal font-medium hover:bg-warmcream/30 transition-colors">
+                    <span>Do you accept custom orders?</span>
+                    <svg class="w-5 h-5 text-terracotta transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <div class="px-6 pb-5 text-sm text-stone-600 leading-relaxed">
+                    Absolutely! We love creating <strong>custom pieces</strong>. Whether it's a specific colour, size, or a completely new design — reach out to us via WhatsApp or our <a href="{% url 'store:contact' %}" class="text-terracotta hover:underline">contact page</a> with your ideas. Custom orders typically take 7-14 business days.
+                </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-beige/30 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-5 flex items-center justify-between text-charcoal font-medium hover:bg-warmcream/30 transition-colors">
+                    <span>Do you offer corporate or bulk gifting?</span>
+                    <svg class="w-5 h-5 text-terracotta transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <div class="px-6 pb-5 text-sm text-stone-600 leading-relaxed">
+                    Yes! We offer curated <strong>corporate gifting solutions</strong> — perfect for Eid, Diwali, company milestones, and more. We provide custom packaging and bulk pricing. Visit our <a href="{% url 'store:corporate_gifting' %}" class="text-terracotta hover:underline">Corporate Gifting</a> page or contact us for a tailored proposal.
+                </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-beige/30 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-5 flex items-center justify-between text-charcoal font-medium hover:bg-warmcream/30 transition-colors">
+                    <span>How do I care for crochet products?</span>
+                    <svg class="w-5 h-5 text-terracotta transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <div class="px-6 pb-5 text-sm text-stone-600 leading-relaxed">
+                    To keep your handcrafted pieces looking beautiful:
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li><strong>Hand wash</strong> in cold water with mild detergent.</li>
+                        <li><strong>Do not wring</strong> — gently squeeze out excess water.</li>
+                        <li>Lay flat to dry in shade. Avoid direct sunlight.</li>
+                        <li>Store in a cool, dry place. Avoid hanging heavy items.</li>
+                    </ul>
+                    Specific care instructions are included with each product.
+                </div>
+            </details>
+
+            <details class="group bg-white rounded-xl border border-beige/30 overflow-hidden">
+                <summary class="cursor-pointer px-6 py-5 flex items-center justify-between text-charcoal font-medium hover:bg-warmcream/30 transition-colors">
+                    <span>How can I track my order?</span>
+                    <svg class="w-5 h-5 text-terracotta transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </summary>
+                <div class="px-6 pb-5 text-sm text-stone-600 leading-relaxed">
+                    Visit our <a href="{% url 'store:track_order' %}" class="text-terracotta hover:underline">Track Order</a> page and enter your Order ID and phone number. You'll see real-time status updates from placement to delivery. You'll also receive WhatsApp notifications at each stage.
+                </div>
+            </details>
+
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Order Has Shipped — Warm Hook Hugs</title>
+</head>
+<body style="margin:0;padding:0;background-color:#FDF8F0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FDF8F0;padding:40px 20px;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background-color:#3D3D3D;padding:30px 40px;text-align:center;">
+                            <h1 style="margin:0;color:#FDF8F0;font-size:24px;font-weight:700;letter-spacing:2px;">🧶 WARM HOOK HUGS</h1>
+                        </td>
+                    </tr>
+
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding:40px;">
+                            <h2 style="margin:0 0 8px;color:#3D3D3D;font-size:22px;">Your Order Has Shipped! 🚚</h2>
+                            <p style="margin:0 0 24px;color:#8B8B8B;font-size:14px;line-height:1.6;">
+                                Great news! Your order <strong style="color:#3D3D3D;">{{ order.short_id }}</strong> is on its way to you.
+                            </p>
+
+                            <!-- Tracking Info -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FAF0E4;border-radius:8px;margin-bottom:24px;">
+                                <tr>
+                                    <td style="padding:20px;">
+                                        <p style="margin:0 0 4px;font-size:12px;color:#8B8B8B;text-transform:uppercase;letter-spacing:1px;">Tracking Number</p>
+                                        <p style="margin:0 0 16px;font-size:20px;font-weight:700;color:#3D3D3D;font-family:monospace;">{{ tracking_number|default:"Pending" }}</p>
+                                        
+                                        {% if tracking_url %}
+                                        <a href="{{ tracking_url }}" style="display:inline-block;background-color:#C2703E;color:#ffffff;padding:12px 28px;font-size:14px;font-weight:600;text-decoration:none;border-radius:6px;letter-spacing:0.5px;">Track Your Package →</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Delivery Info -->
+                            <div style="margin-bottom:24px;">
+                                <h3 style="margin:0 0 12px;color:#3D3D3D;font-size:16px;border-bottom:1px solid #E8E0D4;padding-bottom:8px;">Delivery Details</h3>
+                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="padding:6px 0;font-size:13px;color:#8B8B8B;width:120px;">Ship To</td>
+                                        <td style="padding:6px 0;font-size:13px;color:#3D3D3D;">{{ order.full_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:6px 0;font-size:13px;color:#8B8B8B;">Address</td>
+                                        <td style="padding:6px 0;font-size:13px;color:#3D3D3D;">{{ order.address }}, {{ order.city }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:6px 0;font-size:13px;color:#8B8B8B;">Phone</td>
+                                        <td style="padding:6px 0;font-size:13px;color:#3D3D3D;">{{ order.phone }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:6px 0;font-size:13px;color:#8B8B8B;">Payment</td>
+                                        <td style="padding:6px 0;font-size:13px;color:#3D3D3D;">Cash on Delivery — PKR {{ order.total }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Tips -->
+                            <div style="background-color:#F0F7ED;border-radius:8px;padding:16px;margin-bottom:16px;">
+                                <h4 style="margin:0 0 8px;font-size:13px;color:#6B7F5C;font-weight:600;">📋 Delivery Tips</h4>
+                                <ul style="margin:0;padding:0 0 0 16px;font-size:12px;color:#6B7F5C;line-height:1.8;">
+                                    <li>Please have PKR {{ order.total }} ready (exact amount preferred).</li>
+                                    <li>Ensure someone is available at the delivery address.</li>
+                                    <li>Check the package before signing for it.</li>
+                                </ul>
+                            </div>
+
+                            <p style="margin:16px 0 0;font-size:13px;color:#8B8B8B;line-height:1.6;">
+                                Questions about your order? Reply to this email or message us on WhatsApp at <strong>+92 300 1234567</strong>.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color:#3D3D3D;padding:24px 40px;text-align:center;">
+                            <p style="margin:0 0 8px;color:#FDF8F0;font-size:13px;font-weight:600;">Warm Hook Hugs</p>
+                            <p style="margin:0;color:#A0A0A0;font-size:11px;">Woven with Intention. Crafted for Generations. 🧶</p>
+                            <p style="margin:12px 0 0;color:#A0A0A0;font-size:11px;">📱 WhatsApp: +92 300 1234567 | ✉️ hello@warmhookhugs.pk</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

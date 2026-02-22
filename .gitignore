@@ -1,0 +1,35 @@
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# ── Django ──
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/products/*
+media/categories/*
+!media/.gitkeep
+
+# ── Environment ──
+.env
+.env.prod
+*.env.local
+
+# ── IDE ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS ──
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Docker ──
+*.log

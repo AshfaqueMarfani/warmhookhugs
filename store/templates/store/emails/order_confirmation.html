@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed — Warm Hook Hugs</title>
+</head>
+<body style="margin:0;padding:0;background-color:#FDF8F0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FDF8F0;padding:40px 20px;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+                    <!-- Header -->
+                    <tr>
+                        <td style="background-color:#3D3D3D;padding:30px 40px;text-align:center;">
+                            <h1 style="margin:0;color:#FDF8F0;font-size:24px;font-weight:700;letter-spacing:2px;">🧶 WARM HOOK HUGS</h1>
+                        </td>
+                    </tr>
+
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding:40px;">
+                            <h2 style="margin:0 0 8px;color:#3D3D3D;font-size:22px;">Order Confirmed! ✨</h2>
+                            <p style="margin:0 0 20px;color:#8B8B8B;font-size:14px;">Thank you for your order, {{ order.full_name }}!</p>
+
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#FAF0E4;border-radius:8px;padding:20px;margin-bottom:24px;">
+                                <tr>
+                                    <td style="padding:8px 16px;">
+                                        <p style="margin:0;font-size:12px;color:#8B8B8B;text-transform:uppercase;letter-spacing:1px;">Order ID</p>
+                                        <p style="margin:4px 0 0;font-size:18px;font-weight:700;color:#3D3D3D;font-family:monospace;">{{ order.short_id }}</p>
+                                    </td>
+                                    <td style="padding:8px 16px;text-align:right;">
+                                        <p style="margin:0;font-size:12px;color:#8B8B8B;text-transform:uppercase;letter-spacing:1px;">Status</p>
+                                        <p style="margin:4px 0 0;font-size:14px;font-weight:600;color:#8B9E7E;">{{ order.get_status_display }}</p>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Order Items -->
+                            <h3 style="margin:0 0 12px;color:#3D3D3D;font-size:16px;border-bottom:1px solid #E8E0D4;padding-bottom:8px;">Order Details</h3>
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                {% for item in items %}
+                                <tr>
+                                    <td style="padding:8px 0;border-bottom:1px solid #F0E8DC;">
+                                        <p style="margin:0;font-size:14px;color:#3D3D3D;font-weight:500;">{{ item.product_title }}</p>
+                                        <p style="margin:2px 0 0;font-size:12px;color:#8B8B8B;">Qty: {{ item.quantity }}</p>
+                                    </td>
+                                    <td style="padding:8px 0;border-bottom:1px solid #F0E8DC;text-align:right;">
+                                        <p style="margin:0;font-size:14px;color:#3D3D3D;font-weight:600;">PKR {{ item.line_total }}</p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+
+                            <!-- Totals -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:16px;">
+                                <tr>
+                                    <td style="padding:4px 0;font-size:13px;color:#8B8B8B;">Subtotal</td>
+                                    <td style="padding:4px 0;font-size:13px;color:#3D3D3D;text-align:right;">PKR {{ order.subtotal }}</td>
+                                </tr>
+                                {% if order.discount_amount %}
+                                <tr>
+                                    <td style="padding:4px 0;font-size:13px;color:#8B9E7E;">Discount</td>
+                                    <td style="padding:4px 0;font-size:13px;color:#8B9E7E;text-align:right;">-PKR {{ order.discount_amount }}</td>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <td style="padding:4px 0;font-size:13px;color:#8B8B8B;">Shipping</td>
+                                    <td style="padding:4px 0;font-size:13px;color:#3D3D3D;text-align:right;">{% if order.shipping_cost %}PKR {{ order.shipping_cost }}{% else %}FREE{% endif %}</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:12px 0 0;font-size:18px;font-weight:700;color:#3D3D3D;border-top:2px solid #E8E0D4;">Total (COD)</td>
+                                    <td style="padding:12px 0 0;font-size:18px;font-weight:700;color:#C2703E;text-align:right;border-top:2px solid #E8E0D4;">PKR {{ order.total }}</td>
+                                </tr>
+                            </table>
+
+                            <!-- Shipping Address -->
+                            <div style="margin-top:24px;background-color:#FAF0E4;border-radius:8px;padding:16px;">
+                                <h4 style="margin:0 0 8px;font-size:13px;color:#8B8B8B;text-transform:uppercase;letter-spacing:1px;">Shipping To</h4>
+                                <p style="margin:0;font-size:14px;color:#3D3D3D;line-height:1.6;">
+                                    {{ order.full_name }}<br>
+                                    {{ order.address }}<br>
+                                    {{ order.city }}{% if order.postal_code %}, {{ order.postal_code }}{% endif %}<br>
+                                    📱 {{ order.phone }}
+                                </p>
+                            </div>
+
+                            <p style="margin:24px 0 0;font-size:13px;color:#8B8B8B;line-height:1.6;">
+                                💰 <strong>Payment Method:</strong> Cash on Delivery<br>
+                                Please have PKR {{ order.total }} ready at the time of delivery.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color:#3D3D3D;padding:24px 40px;text-align:center;">
+                            <p style="margin:0 0 8px;color:#FDF8F0;font-size:13px;font-weight:600;">Warm Hook Hugs</p>
+                            <p style="margin:0;color:#A0A0A0;font-size:11px;">Woven with Intention. Crafted for Generations. 🧶</p>
+                            <p style="margin:12px 0 0;color:#A0A0A0;font-size:11px;">📱 WhatsApp: +92 300 1234567 | ✉️ hello@warmhookhugs.pk</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

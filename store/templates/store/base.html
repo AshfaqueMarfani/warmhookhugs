@@ -1,0 +1,353 @@
+{% load static store_tags %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}Warm Hook Hugs — Premium handcrafted crochet & knitwear. Woven with Intention. Crafted for Generations.{% endblock %}">
+    <meta name="keywords" content="crochet, knitwear, handmade, Pakistan, amigurumi, organic cotton, baby gifts, artisan">
+    <meta name="author" content="Warm Hook Hugs">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% block og_title %}Warm Hook Hugs — Premium Handcrafted Crochet{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Woven with Intention. Crafted for Generations. Premium handcrafted crochet & knitwear from Pakistan.{% endblock %}">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% block og_image %}{% static 'images/og-default.jpg' %}{% endblock %}">
+    <meta property="og:site_name" content="Warm Hook Hugs">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block tw_title %}Warm Hook Hugs{% endblock %}">
+    <meta name="twitter:description" content="{% block tw_description %}Premium handcrafted crochet & knitwear from Pakistan.{% endblock %}">
+
+    <title>{% block title %}Warm Hook Hugs{% endblock %} | Woven with Intention</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{% static 'images/favicon.svg' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream:      '#FDF8F0',
+                        warmcream:  '#FAF0E4',
+                        terracotta: '#C2703E',
+                        'terracotta-dark': '#A35A2E',
+                        sage:       '#8B9E7E',
+                        'sage-dark':'#6B7E5E',
+                        beige:      '#D4C5A9',
+                        'warm-brown': '#8B6F47',
+                        charcoal:   '#3D3D3D',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        sans:  ['"DM Sans"', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Warm Hook Hugs",
+        "url": "{{ request.scheme }}://{{ request.get_host }}",
+        "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/favicon.svg' %}",
+        "description": "Premium handcrafted crochet & knitwear from Pakistan",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Karachi",
+            "addressCountry": "PK"
+        },
+        "sameAs": ["{{ brand_instagram }}"]
+    }
+    </script>
+    {% block structured_data %}{% endblock %}
+
+    {% block extra_head %}{% endblock %}
+
+    <!-- Google Analytics GA4 -->
+    {% if GA4_MEASUREMENT_ID %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA4_MEASUREMENT_ID }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ GA4_MEASUREMENT_ID }}');
+    </script>
+    {% endif %}
+
+    <!-- Meta Pixel -->
+    {% if META_PIXEL_ID %}
+    <script>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '{{ META_PIXEL_ID }}');
+        fbq('track', 'PageView');
+    </script>
+    {% endif %}
+</head>
+
+<body class="bg-cream text-charcoal font-sans antialiased">
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="bg-charcoal text-cream text-center py-2 text-sm tracking-wide font-light">
+        🧶 Free Nationwide Delivery on orders above PKR 5,000 &nbsp;|&nbsp; Handcrafted with love in Pakistan
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-beige/50 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+
+                <!-- Logo -->
+                <a href="{% url 'store:home' %}" class="flex items-center space-x-2 flex-shrink-0">
+                    <span class="text-2xl md:text-3xl font-serif font-bold text-charcoal tracking-tight">
+                        Warm Hook <span class="text-terracotta">Hugs</span>
+                    </span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="hidden lg:flex items-center space-x-6 text-sm font-medium tracking-wide uppercase">
+                    <a href="{% url 'store:home' %}" class="text-charcoal hover:text-terracotta transition-colors duration-200">Home</a>
+                    <a href="{% url 'store:all_products' %}" class="text-charcoal hover:text-terracotta transition-colors duration-200">Shop</a>
+                    <a href="{% url 'store:our_story' %}" class="text-charcoal hover:text-terracotta transition-colors duration-200">Our Story</a>
+                    <a href="{% url 'store:corporate_gifting' %}" class="text-charcoal hover:text-terracotta transition-colors duration-200">Gifting</a>
+                    <a href="{% url 'store:artisan_initiative' %}" class="text-charcoal hover:text-terracotta transition-colors duration-200">Artisans</a>
+                    <a href="{% url 'store:contact' %}" class="text-charcoal hover:text-terracotta transition-colors duration-200">Contact</a>
+                </div>
+
+                <!-- Right Actions: Search, Account, Wishlist, Cart -->
+                <div class="flex items-center space-x-3">
+                    <!-- Search Toggle -->
+                    <button id="search-toggle-btn" class="text-charcoal hover:text-terracotta transition-colors" aria-label="Search">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </button>
+
+                    <!-- Account -->
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'store:account' %}" class="hidden sm:block text-charcoal hover:text-terracotta transition-colors" title="My Account">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'store:login' %}" class="hidden sm:block text-charcoal hover:text-terracotta transition-colors" title="Login">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    </a>
+                    {% endif %}
+
+                    <!-- Wishlist -->
+                    <a href="{% url 'store:wishlist' %}" class="relative hidden sm:block text-charcoal hover:text-terracotta transition-colors" title="Wishlist">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                        {% if wishlist_count %}
+                        <span class="absolute -top-2 -right-2 bg-sage text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold text-[10px]">{{ wishlist_count }}</span>
+                        {% endif %}
+                    </a>
+
+                    <!-- Cart -->
+                    <a href="{% url 'store:cart' %}" class="relative group">
+                        <svg class="w-6 h-6 text-charcoal group-hover:text-terracotta transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                        </svg>
+                        {% if cart_count %}
+                        <span class="absolute -top-2 -right-2 bg-terracotta text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-semibold">{{ cart_count }}</span>
+                        {% endif %}
+                    </a>
+
+                    <!-- Mobile hamburger -->
+                    <button id="mobile-menu-btn" class="lg:hidden text-charcoal">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Dropdown -->
+        <div id="search-dropdown" class="hidden bg-white border-t border-beige/50 py-4">
+            <div class="max-w-2xl mx-auto px-4">
+                <form action="{% url 'store:search' %}" method="GET" class="relative">
+                    <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search for products, categories, colors..."
+                           class="w-full px-4 py-3 pl-10 border border-stone-200 rounded-lg focus:ring-2 focus:ring-terracotta focus:border-transparent text-sm" 
+                           id="search-input" autocomplete="off">
+                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </form>
+                <div id="search-suggestions" class="mt-2 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-beige/50 pb-4">
+            <div class="px-4 space-y-3 pt-4 text-sm font-medium tracking-wide uppercase">
+                <a href="{% url 'store:home' %}" class="block py-2 text-charcoal hover:text-terracotta">Home</a>
+                <a href="{% url 'store:all_products' %}" class="block py-2 text-charcoal hover:text-terracotta">Shop</a>
+                <a href="{% url 'store:our_story' %}" class="block py-2 text-charcoal hover:text-terracotta">Our Story</a>
+                <a href="{% url 'store:corporate_gifting' %}" class="block py-2 text-charcoal hover:text-terracotta">Gifting</a>
+                <a href="{% url 'store:artisan_initiative' %}" class="block py-2 text-charcoal hover:text-terracotta">Artisans</a>
+                <a href="{% url 'store:contact' %}" class="block py-2 text-charcoal hover:text-terracotta">Contact</a>
+                <hr class="border-beige/50">
+                {% if user.is_authenticated %}
+                <a href="{% url 'store:account' %}" class="block py-2 text-charcoal hover:text-terracotta">My Account</a>
+                <a href="{% url 'store:wishlist' %}" class="block py-2 text-charcoal hover:text-terracotta">Wishlist ({{ wishlist_count }})</a>
+                <a href="{% url 'store:logout' %}" class="block py-2 text-stone-400 hover:text-red-500">Logout</a>
+                {% else %}
+                <a href="{% url 'store:login' %}" class="block py-2 text-charcoal hover:text-terracotta">Login</a>
+                <a href="{% url 'store:register' %}" class="block py-2 text-charcoal hover:text-terracotta">Create Account</a>
+                {% endif %}
+                <a href="{% url 'store:track_order' %}" class="block py-2 text-charcoal hover:text-terracotta">Track Order</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MESSAGES / TOASTS -->
+    {% if messages %}
+    <div class="max-w-7xl mx-auto px-4 pt-4">
+        {% for message in messages %}
+        <div class="mb-3 px-6 py-4 rounded-lg text-sm font-medium flex items-center justify-between
+            {% if message.tags == 'success' %}bg-sage/20 text-sage-dark border border-sage/30
+            {% elif message.tags == 'error' %}bg-red-50 text-red-700 border border-red-200
+            {% elif message.tags == 'warning' %}bg-amber-50 text-amber-700 border border-amber-200
+            {% else %}bg-blue-50 text-blue-700 border border-blue-200{% endif %}" role="alert">
+            <span>{{ message }}</span>
+            <button onclick="this.parentElement.remove()" class="ml-4 opacity-60 hover:opacity-100 transition-opacity">&times;</button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- MAIN CONTENT -->
+    <main class="min-h-screen">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- NEWSLETTER SECTION -->
+    {% block newsletter %}
+    <section class="bg-warmcream py-16 border-t border-beige/30">
+        <div class="max-w-xl mx-auto px-4 text-center">
+            <h3 class="text-2xl font-serif font-bold text-charcoal mb-2">Stay in the Loop</h3>
+            <p class="text-sm text-stone-600 mb-6">Join our newsletter for exclusive drops, artisan stories, and special offers.</p>
+            <form action="{% url 'store:newsletter_subscribe' %}" method="POST" class="flex max-w-md mx-auto">
+                {% csrf_token %}
+                <input type="email" name="email" required placeholder="Your email address"
+                       class="flex-1 px-4 py-3 border border-stone-300 rounded-l-lg focus:ring-2 focus:ring-amber-600 focus:border-transparent bg-white text-sm">
+                <button type="submit" class="bg-charcoal text-cream px-6 py-3 text-sm uppercase tracking-wider font-medium hover:bg-terracotta transition-all rounded-r-lg">
+                    Subscribe
+                </button>
+            </form>
+            <p class="text-xs text-stone-400 mt-3">No spam. Unsubscribe anytime.</p>
+        </div>
+    </section>
+    {% endblock %}
+
+    <!-- FOOTER -->
+    <footer class="bg-charcoal text-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+
+                <!-- Brand -->
+                <div class="lg:col-span-2">
+                    <h3 class="text-2xl font-serif font-bold mb-4">Warm Hook <span class="text-terracotta">Hugs</span></h3>
+                    <p class="text-sm text-stone-400 leading-relaxed mb-4">
+                        Woven with Intention. Crafted for Generations.<br>
+                        Every loop and stitch is a testament to slow fashion.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="{{ brand_instagram }}" target="_blank" class="text-stone-400 hover:text-terracotta transition-colors" aria-label="Instagram">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <a href="{{ brand_whatsapp }}" target="_blank" class="text-stone-400 hover:text-green-500 transition-colors" aria-label="WhatsApp">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Shop -->
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-widest text-beige mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm text-stone-400">
+                        <li><a href="{% url 'store:all_products' %}" class="hover:text-terracotta transition-colors">All Products</a></li>
+                        <li><a href="{% url 'store:all_products' %}?sort=sale" class="hover:text-terracotta transition-colors">Sale Items</a></li>
+                        <li><a href="{% url 'store:all_products' %}?sort=popular" class="hover:text-terracotta transition-colors">Best Sellers</a></li>
+                        <li><a href="{% url 'store:track_order' %}" class="hover:text-terracotta transition-colors">Track Order</a></li>
+                    </ul>
+                </div>
+
+                <!-- Brand -->
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-widest text-beige mb-4">Brand</h4>
+                    <ul class="space-y-2 text-sm text-stone-400">
+                        <li><a href="{% url 'store:our_story' %}" class="hover:text-terracotta transition-colors">Our Story</a></li>
+                        <li><a href="{% url 'store:artisan_initiative' %}" class="hover:text-terracotta transition-colors">Artisan Initiative</a></li>
+                        <li><a href="{% url 'store:corporate_gifting' %}" class="hover:text-terracotta transition-colors">Corporate Gifting</a></li>
+                        <li><a href="{% url 'store:contact' %}" class="hover:text-terracotta transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Help -->
+                <div>
+                    <h4 class="text-sm font-semibold uppercase tracking-widest text-beige mb-4">Help</h4>
+                    <ul class="space-y-2 text-sm text-stone-400">
+                        <li><a href="{% url 'store:faq' %}" class="hover:text-terracotta transition-colors">FAQ</a></li>
+                        <li><a href="{% url 'store:shipping_returns' %}" class="hover:text-terracotta transition-colors">Shipping & Returns</a></li>
+                        <li><a href="{% url 'store:privacy_policy' %}" class="hover:text-terracotta transition-colors">Privacy Policy</a></li>
+                        <li><a href="{% url 'store:terms_conditions' %}" class="hover:text-terracotta transition-colors">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-stone-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-stone-500 gap-4">
+                <span>&copy; {{ current_year }} Warm Hook Hugs. All rights reserved. Handcrafted in Pakistan.</span>
+                <span>Cash on Delivery &nbsp;|&nbsp; OTP Verified &nbsp;|&nbsp; Nationwide Delivery</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOATING WIDGET -->
+    <a href="{{ brand_whatsapp }}" target="_blank" id="whatsapp-widget"
+       class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 group"
+       aria-label="Chat on WhatsApp">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="absolute bottom-full right-0 mb-2 bg-charcoal text-cream text-xs px-3 py-2 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            Chat with us on WhatsApp
+        </span>
+    </a>
+
+    <!-- COOKIE CONSENT BANNER -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-40 bg-charcoal text-cream px-4 py-4 hidden">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-stone-300">
+                We use cookies to enhance your experience. By continuing to visit this site you agree to our <a href="{% url 'store:privacy_policy' %}" class="text-terracotta hover:underline">Privacy Policy</a>.
+            </p>
+            <div class="flex gap-2">
+                <button onclick="acceptCookies()" class="bg-terracotta text-cream px-6 py-2 text-sm rounded-lg hover:bg-terracotta-dark transition-colors">Accept</button>
+                <button onclick="declineCookies()" class="border border-stone-500 text-stone-300 px-6 py-2 text-sm rounded-lg hover:bg-stone-700 transition-colors">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
